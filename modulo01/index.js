@@ -2,8 +2,38 @@ const express = require("express");
 
 const server = express();
 
-server.get("/test", (req, res) => {
-  return res.json({ message: "Hello world" });
+server.use(express.json());
+
+const users = ["Diego", "Robson", "Victor"];
+
+server.get("/users", (req, res) => {
+  res.json(users);
+});
+
+server.get("/users/:index", (req, res) => {
+  const { index } = req.params;
+  return res.json(users[index]);
+});
+
+server.post("/users", (req, res) => {
+  const { name } = req.body;
+
+  users.push(name);
+  res.json(users);
+});
+
+server.put("/users/:index", (req, res) => {
+  const { index } = req.params;
+  const { name } = req.body;
+
+  users[index] = name;
+  res.json(users);
+});
+
+server.delete("/users/:index", (req, res) => {
+  const { index } = req.params;
+  users.splice(index, 1);
+  res.send();
 });
 
 server.listen(3000);
