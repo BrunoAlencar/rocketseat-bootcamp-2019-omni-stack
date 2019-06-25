@@ -34,7 +34,11 @@ function checkUserInArray(req, res, next) {
 }
 
 server.get("/users", (req, res) => {
+  console.log(users)
+  users.push('Bruno')
+
   res.json(users);
+
 });
 
 server.get("/users/:index", checkUserInArray, (req, res) => {
