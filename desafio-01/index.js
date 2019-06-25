@@ -3,6 +3,24 @@ const server = express();
 
 server.use(express.json());
 
+let count = 0;
+const reqCounter = (req, res, next) => {
+  count++;
+  console.log(count);
+  next();
+};
+server.use(reqCounter);
+
+const projectExists = (req, res, next) => {
+  const { id } = req.params;
+  const projectIndex = projects.findIndex(project => project.id == id);
+  if (projectIndex === -1) {
+    return res.status(404).json({ error: "Project not found" });
+  }
+  req.projectIndex = projectIndex;
+  next();
+};
+
 const projects = [
   {
     id: "1123",
@@ -39,28 +57,18 @@ server.get("/projects", (req, res) => {
   }
 });
 
-server.put("/projects/:id", (req, res) => {
-  const { id } = req.params;
+server.put("/projects/:id", projectExists, (req, res) => {
   try {
-    const projectIndex = projects.findIndex(project => project.id == id);
-    if (projectIndex === -1) {
-      return res.status(404).json({ error: "Project not found" });
-    }
-    projects[projectIndex].title = req.body.title;
-    res.json(projects[projectIndex]);
+    projects[req.projectIndex].title = req.body.title;
+    res.json(projects[req.projectIndex]);
   } catch ({ message: error }) {
     res.status(500).send({ error });
   }
 });
 
-server.delete("/projects/:id", (req, res) => {
-  const { id } = req.params;
+server.delete("/projects/:id", projectExists, (req, res) => {
   try {
-    const projectIndex = projects.findIndex(project => project.id == id);
-    if (projectIndex === -1) {
-      return res.status(404).json({ error: "Project not found" });
-    }
-    projects.splice(projectIndex, 1);
+    projects.splice(req.projectIndex, 1);
     res.json({
       message: "Project deleted with success!"
     });
@@ -69,7 +77,15 @@ server.delete("/projects/:id", (req, res) => {
   }
 });
 
-server.post("/projects/:id/tasks", (req, res) => {});
+server.post("/projects/:id/tasks", projectExists, (req, res) => {
+  const { title } = req.body;
+  try {
+    projects[req.projectIndex].tasks.push(title);
+    res.json(projects[req.projectIndex]);
+  } catch ({ message: error }) {
+    res.status(400).json({ error });
+  }
+});
 
 const port = process.env.PORT || 3000;
 server.listen(port, () => {
