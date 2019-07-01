@@ -1,8 +1,10 @@
 import * as Yup from 'yup';
-import { startOfHour, parse, isBefore } from 'date-fns';
+import { startOfHour, parse, isBefore, format } from 'date-fns';
+import pt from 'date-fns/locale/pt';
 import User from '../models/User';
 import File from '../models/File';
 import Appointment from '../models/Appointment';
+import Notification from '../schemas/Notification';
 
 class AppointmentController {
   async index(req, res) {
@@ -80,10 +82,30 @@ class AppointmentController {
         .json({ error: 'Appointment date is not available' });
     }
 
+    // check if is the same person user and user_provider
+    if (req.userId === provider_id) {
+      return res
+        .status(400)
+        .json({ error: 'User and provider can not be the same person' });
+    }
+
     const appointment = await Appointment.create({
       user_id: req.userId,
       provider_id,
       date,
+    });
+
+    // NOtify appointment provider
+    const user = await User.findByPk(req.userId);
+    const formattedDate = format(
+      hourStart,
+      '[dia] DD [de] MMMM[, às] H:mm[h]',
+      { locale: pt }
+    );
+
+    await Notification.create({
+      content: `Novo agendamento de ${user.name} para ${formattedDate}`,
+      user: provider_id,
     });
 
     return res.send(appointment);
