@@ -14,7 +14,6 @@ module.exports = {
       path: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -27,11 +26,7 @@ module.exports = {
     });
   },
 
-  down: queryInterface => {
+  down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('files');
   },
 };
-
-// yarn sequelize migration:create --name=create-files
-// yarn sequelize db:migrate
-// yarn sequelize migration:create --name=add-avatar-field-to-users

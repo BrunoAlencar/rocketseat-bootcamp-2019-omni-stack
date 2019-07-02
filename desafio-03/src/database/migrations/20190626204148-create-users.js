@@ -1,6 +1,8 @@
+'use strict';
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('files', {
+    return queryInterface.createTable('users', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -11,10 +13,18 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      path: {
+      email: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
+      },
+      password_hash: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      role: {
+        type: Sequelize.STRING,
+        defaultValue: 'USER',
+        allowNull: false,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -27,11 +37,9 @@ module.exports = {
     });
   },
 
-  down: queryInterface => {
-    return queryInterface.dropTable('files');
+  down: (queryInterface, Sequelize) => {
+    return queryInterface.dropTable('users');
   },
 };
-
-// yarn sequelize migration:create --name=create-files
-// yarn sequelize db:migrate
-// yarn sequelize migration:create --name=add-avatar-field-to-users
+// yarn sequelize migration:create --name=create-users
+// yarn squelize db:migrate
