@@ -1,10 +1,13 @@
 import { isBefore, parse } from 'date-fns';
-import { Op } from 'sequelize';
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 
 import Meetup from '../models/Meetup';
 import User from '../models/User';
 import Subscription from '../models/Subscription';
+
+import NewSubscriptionMail from '../jobs/NewSubscriptionMail';
+import Queue from '../../lib/Queue';
 
 class SubscriptionController {
   async store(req, res) {
@@ -73,7 +76,65 @@ class SubscriptionController {
       meetup_id,
     });
 
+    const promoter = await User.findOne({
+      where: meetup.user_id,
+    });
+    const user = await User.findOne({
+      where: subscription.user_id,
+    });
+
+    // quantas inscrições temos no evento
+    const quantity = await Subscription.count({
+      where: {
+        meetup_id,
+      },
+    });
+
+    await Queue.add(NewSubscriptionMail.key, {
+      subscription: {
+        promoter: promoter,
+        user: user.name,
+        created_at: parse(new Date()),
+        quantity,
+      },
+    });
+
     return res.json(subscription);
+  }
+
+  async listUserMeetups(req, res) {
+    // const meetups = await Subscription.findAll({
+    //   where: {
+    //     user_id: req.userId,
+    //   },
+    //   attributes: ['id'],
+    //   include: [
+    //     {
+    //       model: Meetup,
+    //       as: 'meetup',
+    //       attributes: ['title', 'description', 'location', 'date'],
+    //       order: [['date', 'DESC']],
+    //     },
+    //   ],
+    // });
+    const meetups = await Meetup.findAll({
+      attributes: ['date', 'title', 'description', 'location'],
+      order: [['date']],
+      where: {
+        date: { [Op.gte]: new Date() },
+      },
+      include: [
+        {
+          model: Subscription,
+          as: 'subscription',
+          where: {
+            user_id: req.userId,
+          },
+          attributes: ['id'],
+        },
+      ],
+    });
+    res.json(meetups);
   }
 }
 

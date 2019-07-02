@@ -1,4 +1,4 @@
-import { isBefore, parse } from 'date-fns';
+import { isBefore, parse, startOfDay, endOfDay } from 'date-fns';
 import { Op } from 'sequelize';
 import * as Yup from 'yup';
 
@@ -8,6 +8,35 @@ import User from '../models/User';
 
 class MeetupController {
   async index(req, res) {
+    const { date, page = 1 } = req.query;
+
+    if (!date) {
+      return res.status(400).json({
+        error: 'Invalid date',
+      });
+    }
+    const meetups = await Meetup.findAll({
+      where: {
+        date: {
+          [Op.between]: [startOfDay(date), endOfDay(date)],
+        },
+      },
+      order: [['created_at', 'desc']],
+      limit: 10,
+      offset: (page - 1) * 10,
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['id', 'name', 'email'],
+        },
+      ],
+    });
+
+    res.json(meetups);
+  }
+
+  async listPromoterMeetups(req, res) {
     const meetups = await Meetup.findAll({
       where: {
         user_id: req.userId,
