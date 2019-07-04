@@ -23,7 +23,7 @@ module.exports = {
         use: [{ loader: "style-loader" }, { loader: "css-loader" }]
       },
       {
-        test: /.*\.(git|png|jpe?g)$/i,
+        test: /.*\.(gif|png|jpe?g)$/i,
         use: "file-loader"
       }
     ]
