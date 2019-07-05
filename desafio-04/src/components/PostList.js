@@ -21,7 +21,16 @@ class PostList extends Component {
               name: "Diego Fernandes",
               avatar: url
             },
-            content: "Conteúdo do comentário"
+            content:
+              "Conteúdo do comentário, Conteúdo do comentário, Conteúdo do comentário. Conteúdo do comentário.Conteúdo do comentário"
+          },
+          {
+            id: 2,
+            author: {
+              name: "Bruno Alencar",
+              avatar: url
+            },
+            content: "Comentário dois"
           }
         ]
       },

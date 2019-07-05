@@ -6,10 +6,12 @@ import Comment from "./Comment";
 function Post({ data }) {
   return (
     <div className="post">
-      <img src={data.author.avatar} alt="Avatar" />
       <div className="post-profile">
-        <strong>{data.author.name}</strong>
-        <span>{data.date}</span>
+        <img src={data.author.avatar} alt="Avatar" />
+        <div>
+          <strong>{data.author.name}</strong>
+          <span>{data.date}</span>
+        </div>
       </div>
       <div className="post-content">{data.content}</div>
       <div className="post-comments">
