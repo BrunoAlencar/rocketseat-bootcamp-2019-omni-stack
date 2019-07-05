@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Post from "./Post";
 
+const url =
+  "https://i.pinimg.com/originals/2b/85/d3/2b85d3ecc1542e456c3036df53b3fc8a.jpg";
 class PostList extends Component {
   state = {
     posts: [
@@ -8,7 +10,7 @@ class PostList extends Component {
         id: 1,
         author: {
           name: "Diego Fernandes",
-          avatar: "http://url-da-imagem.com/imagem.jpg"
+          avatar: url
         },
         date: "04 Jun 2019",
         content: "Pessoal, alguém sabe se a Rocketseat está contratando?",
@@ -17,7 +19,7 @@ class PostList extends Component {
             id: 1,
             author: {
               name: "Diego Fernandes",
-              avatar: "http://url-da-imagem.com/imagem.jpg"
+              avatar: url
             },
             content: "Conteúdo do comentário"
           }
@@ -27,7 +29,7 @@ class PostList extends Component {
         id: 2,
         author: {
           name: "Bruno Alencar",
-          avatar: "http://url-da-imagem.com/imagem.jpg"
+          avatar: url
         },
         date: "04 Jul 2019",
         content: "Pessoal, alguém sabe se a Rocketseat está contratando?",
@@ -36,7 +38,7 @@ class PostList extends Component {
             id: 1,
             author: {
               name: "Bruno Alencar",
-              avatar: "http://url-da-imagem.com/imagem.jpg"
+              avatar: url
             },
             content: "Espero que sim gostaria de continuar com eles!"
           }
@@ -47,7 +49,7 @@ class PostList extends Component {
 
   render() {
     return (
-      <div className="posts-list">
+      <div className="posts-list content">
         {this.state.posts.map(post => (
           <Post key={post.id} data={post} />
         ))}

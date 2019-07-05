@@ -52,3 +52,28 @@ header span .profile {
   -webkit-mask: url(/images/profile.svg) no-repeat center;
   mask: url(/images/profile.svg) no-repeat center;
 }
+
+div.posts-list {
+  display: flex;
+
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  width: 700px;
+}
+
+div.posts-list .post {
+  /* display: flex;
+  flex-direction: column; */
+}
+
+div.posts-list .post > img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+div.posts-list .post div.post-profile {
+  display: flex;
+  flex-direction: column;
+}
