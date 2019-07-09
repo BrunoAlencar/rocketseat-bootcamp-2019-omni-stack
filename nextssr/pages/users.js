@@ -4,7 +4,7 @@ import axios from "axios";
 import Link from "next/link";
 import Head from "next/head";
 
-import withAnalytics from "../src/hocs/withAnalytics";
+import withAnalytics from "~/hocs/withAnalytics";
 
 const User = ({ users }) => (
   <div>
@@ -13,7 +13,12 @@ const User = ({ users }) => (
     </Head>
     <ul>
       {users.map(user => (
-        <li key={user.id}>{user.login}</li>
+        <li key={user.id}>
+          {user.login}
+          <Link href={`/users/${user.login}`}>
+            <a>Acessar perfil</a>
+          </Link>
+        </li>
       ))}
     </ul>
     <Link href="/">
