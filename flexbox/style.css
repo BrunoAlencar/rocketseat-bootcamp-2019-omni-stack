@@ -6,12 +6,33 @@ body,
 }
 #app {
   display: flex;
-  flex-direction: column-reverse;
+  /* flex-direction: column; */
+  /* align-items: center; */
+  /* flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  align-content: center; */
 }
 
 .box {
-  width: 60px;
+  width: 100px;
   height: 60px;
-  background: #f00;
   margin: 5px;
+  /* flex-grow: 1; */
+  /* flex-shrink: 1; */
+  /* flex: 1; */
+}
+
+.red {
+  background: #f00;
+  order:3;
+}
+.green {
+  background: #0f0;
+  order:2;
+}
+
+.blue {
+  background: #00f;
+  order:0;
 }
