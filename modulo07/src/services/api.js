@@ -5,3 +5,6 @@ const api = axios.create({
 });
 
 export default api;
+
+// json-server server.json -p 3333 -w
+// json-server server.json -p 3333
