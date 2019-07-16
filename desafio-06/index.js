@@ -17,4 +17,5 @@ AppRegistry.registerComponent(appName, () => App);
  * react-native start --reset-cache
  * react-native run-android
  * react-native run-ios
+ * react-native run-android --deviceId=HAAZB6035448VWM
  */
