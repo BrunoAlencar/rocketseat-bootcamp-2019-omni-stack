@@ -1002,7 +1002,7 @@ eslint@^6.0.1:
     js-yaml "^3.13.1"
     json-stable-stringify-without-jsonify "^1.0.1"
     levn "^0.3.0"
-    lodash "^4.17.11"
+    lodash "^4.17.13"
     minimatch "^3.0.4"
     mkdirp "^0.5.1"
     natural-compare "^1.4.0"
@@ -1609,7 +1609,7 @@ inquirer@^6.2.2:
     cli-width "^2.0.0"
     external-editor "^3.0.3"
     figures "^2.0.0"
-    lodash "^4.17.11"
+    lodash "^4.17.13"
     mute-stream "0.0.7"
     run-async "^2.2.0"
     rxjs "^6.4.0"
@@ -3150,7 +3150,7 @@ sequelize@^5.8.12:
     debug "^4.1.1"
     dottie "^2.0.0"
     inflection "1.12.0"
-    lodash "^4.17.11"
+    lodash "^4.17.13"
     moment "^2.24.0"
     moment-timezone "^0.5.21"
     retry-as-promised "^3.1.0"
@@ -3422,7 +3422,7 @@ table@^5.2.3:
   integrity sha512-E6CK1/pZe2N75rGZQotFOdmzWQ1AILtgYbMAbAjvms0S1l5IDB47zG3nCnFGB/w+7nB3vKofbLXCH7HPBo864w==
   dependencies:
     ajv "^6.9.1"
-    lodash "^4.17.11"
+    lodash "^4.17.13"
     slice-ansi "^2.1.0"
     string-width "^3.0.0"
 
@@ -3844,7 +3844,7 @@ yup@^0.27.0:
   dependencies:
     "@babel/runtime" "^7.0.0"
     fn-name "~2.0.1"
-    lodash "^4.17.11"
+    lodash "^4.17.13"
     property-expr "^1.5.0"
     synchronous-promise "^2.0.6"
     toposort "^2.0.2"
